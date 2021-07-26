@@ -17,7 +17,7 @@ services:
   api_host:
     container_name: api_blog
     build: .
-    command: uvicorn main:app --reload
+    command: uvicorn app:app --reload
     volumes:
       - ./api:/api
     # env_file:
