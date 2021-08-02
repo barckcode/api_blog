@@ -10,7 +10,7 @@ from schemas.post import Post_Model
 blog_post = APIRouter()
 
 # Routes
-@blog_post.get("/posts", response_model=Post_Model)
+@blog_post.get("/posts", response_model=list[Post_Model])
 def get_all_posts():
     return db_connection.execute(all_posts_table.select()).fetchall()
 

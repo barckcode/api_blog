@@ -5,8 +5,7 @@ USER_DATABASE = os.getenv("DB_USER")
 PASSWORD_DATABASE = os.getenv("DB_PASSWORD")
 HOST_DATABASE = os.getenv("DB_HOST")
 DATABASE = os.getenv("DB_DATABASE")
-URL_CONNECTION = f"mysql+pymysql://root:temporal@0.0.0.0:3333/posts"
-#URL_CONNECTION = f"mysql+pymysql://{USER_DATABASE}:{PASSWORD_DATABASE}@DB_HOST:3306/{DATABASE}"
+URL_CONNECTION = f"mysql+pymysql://{USER_DATABASE}:{PASSWORD_DATABASE}@{HOST_DATABASE}:3306/{DATABASE}"
 
 meta = MetaData()
 
