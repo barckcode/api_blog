@@ -1,0 +1,29 @@
+name: Upload Code to S3
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+
+    - name: Compress Source Code
+      run: mkdir source && tar -czvf source/api_blog_prod.tar.gz api
+
+    - name: List Directory
+      run: pwd && ls -l && ls -l ./source
+
+    - name: Upload Source Code to S3 bucket
+      run: aws s3 sync ./source s3://source.helmcode.com/api_blog --delete
