@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/api_blog_helmcode_com
+hooks:
+  ApplicationStop:
+    - location: /deploy/stop_api_blog.sh
+      timeout: 300
+  BeforeInstall:
+    - location: /deploy/before_install_api_blog.sh
+      timeout: 300
+  AfterInstall:
+    - location: /deploy/after_install_api_blog.sh
+      timeout: 600
