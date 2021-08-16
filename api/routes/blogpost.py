@@ -1,4 +1,3 @@
-from os import name
 from fastapi import APIRouter, Response
 from starlette.status import HTTP_204_NO_CONTENT
 from config.db import db_connection
@@ -8,6 +7,7 @@ from schemas.post import Post_Model
 
 # Init Routes
 blog_post = APIRouter()
+
 
 # Routes
 @blog_post.get("/posts", response_model=list[Post_Model])
