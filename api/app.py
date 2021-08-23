@@ -7,7 +7,7 @@ from routes.categories import blog_categories
 app = FastAPI(
     title = "Blog API",
     description = "Endpoints para administrar todo lo relacionado con el Blog",
-    version = 0.1,
+    version = 0.2,
     openapi_tags = [{
         "name": "Posts",
         "description": "Endpoint of Posts"
