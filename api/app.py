@@ -8,10 +8,20 @@ app = FastAPI(
     title = "Blog API",
     description = "Endpoints para administrar todo lo relacionado con el Blog",
     version = 0.2,
-    openapi_tags = [{
-        "name": "Posts",
-        "description": "Endpoint of Posts"
-    }]
+    contact = {
+        "name": "Helmcode",
+        "url": "https://helmcode.com/contact",
+    },
+    openapi_tags = [
+        {
+            "name": "Posts",
+            "description": "Endpoint of Posts"
+        },
+        {
+            "name": "Categories",
+            "description": "Endpoint of Categories"
+        }
+    ]
 )
 
 
