@@ -10,17 +10,17 @@ blog_post = APIRouter()
 
 
 # Routes
-@blog_post.get("/posts", response_model=list[Post_Model])
+@blog_post.get("/posts", response_model=list[Post_Model], tags=["Posts"])
 def get_all_posts():
     return db_connection.execute(all_posts_table.select()).fetchall()
 
 
-@blog_post.get("/posts/{id}", response_model=Post_Model)
+@blog_post.get("/posts/{id}", response_model=Post_Model, tags=["Posts"])
 def get_post_by_id(id: int):
     return db_connection.execute(all_posts_table.select().where(all_posts_table.c.id == id)).first()
 
 
-@blog_post.post("/posts", response_model=Post_Model)
+@blog_post.post("/posts", response_model=Post_Model, tags=["Posts"])
 def create_new_post(post: Post_Model):
     new_post = {
         "category": post.category,
@@ -34,13 +34,13 @@ def create_new_post(post: Post_Model):
     return db_connection.execute(all_posts_table.select().where(all_posts_table.c.id == result.lastrowid)).first()
 
 
-@blog_post.delete("/posts/{id}", status_code=HTTP_204_NO_CONTENT)
+@blog_post.delete("/posts/{id}", status_code=HTTP_204_NO_CONTENT, tags=["Posts"])
 def delete_post_by_id(id: int):
     db_connection.execute(all_posts_table.delete().where(all_posts_table.c.id == id))
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
-@blog_post.put("/posts/{id}", response_model=Post_Model)
+@blog_post.put("/posts/{id}", response_model=Post_Model, tags=["Posts"])
 def update_post_by_id(id: int, post: Post_Model):
     db_connection.execute(all_posts_table.update().values(
         category = post.category,
