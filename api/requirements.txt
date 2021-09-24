@@ -3,3 +3,5 @@ uvicorn
 sqlalchemy
 PyMySQL
 cryptography
+python-multipart
+fastapi-login
