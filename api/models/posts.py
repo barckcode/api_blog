@@ -9,6 +9,6 @@ all_posts_table = Table("all_posts", meta,
     Column("date", String(45), nullable=False),
     Column("post_title", String(250), nullable=False),
     Column("post_description", String(375), nullable=False),
-    )
+)
 
 meta.create_all(engine_mysql)

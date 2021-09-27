@@ -5,3 +5,6 @@ PyMySQL
 cryptography
 python-multipart
 fastapi-login
+python-jose
+passlib
+bcrypt
