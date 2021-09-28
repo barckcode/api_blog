@@ -1,8 +1,12 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, Depends
 from starlette.status import HTTP_204_NO_CONTENT
+
+# Internal Modules
 from config.db import db_connection
 from models.category import categories_table
 from schemas.category import Category_Model
+from auth.schemas.users import UserModel
+from auth.manage_tokens import get_current_active_user
 
 
 # Init Routes
@@ -21,7 +25,7 @@ def get_post_by_id(id: int):
 
 
 @blog_categories.post("/categories", response_model=Category_Model, tags=["Categories"])
-def create_new_post(category: Category_Model):
+def create_new_post(category: Category_Model, current_user: UserModel = Depends(get_current_active_user)):
     new_category = {
         "category": category.category,
     }
@@ -31,13 +35,13 @@ def create_new_post(category: Category_Model):
 
 
 @blog_categories.delete("/categories/{id}", status_code=HTTP_204_NO_CONTENT, tags=["Categories"])
-def delete_post_by_id(id: int):
+def delete_post_by_id(id: int, current_user: UserModel = Depends(get_current_active_user)):
     db_connection.execute(categories_table.delete().where(categories_table.c.id_categories == id))
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
 @blog_categories.put("/categories/{id}", response_model=Category_Model, tags=["Categories"])
-def update_post_by_id(id: int, category: Category_Model):
+def update_post_by_id(id: int, category: Category_Model, current_user: UserModel = Depends(get_current_active_user)):
     db_connection.execute(categories_table.update().values(
         category = category.category,
     ).where(categories_table.c.id_categories == id))

@@ -1,4 +1,8 @@
 from fastapi import FastAPI
+
+# Routes
+from auth.manage_tokens import login
+from auth.routes.users import users_route
 from routes.blogpost import blog_post
 from routes.categories import blog_categories
 
@@ -14,17 +18,26 @@ app = FastAPI(
     },
     openapi_tags = [
         {
+            "name": "Auth",
+            "description": "Auth Endpoints"
+        },
+        {
+            "name": "Users",
+            "description": "Users Endpoints"
+        },
+        {
             "name": "Posts",
-            "description": "Endpoint of Posts"
+            "description": "Posts Endpoints"
         },
         {
             "name": "Categories",
-            "description": "Endpoint of Categories"
+            "description": "Categories Endpoints"
         }
     ]
 )
 
 
-# Include Routes to FastAPI
-app.include_router(blog_post)
-app.include_router(blog_categories)
+app.include_router(login)                   # Auth
+app.include_router(users_route)             # Users
+app.include_router(blog_post)               # Posts
+app.include_router(blog_categories)         # Categories
