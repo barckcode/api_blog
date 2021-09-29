@@ -11,7 +11,7 @@ from routes.categories import blog_categories
 app = FastAPI(
     title = "Blog API",
     description = "Endpoints para administrar todo lo relacionado con el Blog",
-    version = 0.2,
+    version = 0.3,
     contact = {
         "name": "Helmcode",
         "url": "https://helmcode.com/contact",

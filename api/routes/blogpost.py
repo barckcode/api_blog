@@ -20,12 +20,12 @@ async def get_all_posts():
 
 
 @blog_post.get("/posts/{id}", response_model=Post_Model, tags=["Posts"])
-def get_post_by_id(id: int):
+async def get_post_by_id(id: int):
     return db_connection.execute(all_posts_table.select().where(all_posts_table.c.id == id)).first()
 
 
 @blog_post.post("/posts", response_model=Post_Model, tags=["Posts"])
-def create_new_post(post: Post_Model, current_user: UserModel = Depends(get_current_active_user)):
+async def create_new_post(post: Post_Model, current_user: UserModel = Depends(get_current_active_user)):
     new_post = {
         "category": post.category,
         "post_name": post.post_name,
@@ -39,13 +39,13 @@ def create_new_post(post: Post_Model, current_user: UserModel = Depends(get_curr
 
 
 @blog_post.delete("/posts/{id}", status_code=HTTP_204_NO_CONTENT, tags=["Posts"])
-def delete_post_by_id(id: int, current_user: UserModel = Depends(get_current_active_user)):
+async def delete_post_by_id(id: int, current_user: UserModel = Depends(get_current_active_user)):
     db_connection.execute(all_posts_table.delete().where(all_posts_table.c.id == id))
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
 @blog_post.put("/posts/{id}", response_model=Post_Model, tags=["Posts"])
-def update_post_by_id(id: int, post: Post_Model, current_user: UserModel = Depends(get_current_active_user)):
+async def update_post_by_id(id: int, post: Post_Model, current_user: UserModel = Depends(get_current_active_user)):
     db_connection.execute(all_posts_table.update().values(
         category = post.category,
         post_name = post.post_name,
